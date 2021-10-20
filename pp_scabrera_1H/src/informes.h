@@ -19,4 +19,6 @@ int total_informes(eArcade* arrayA,int limiteArc,eTipoSonido* tipoS,int tamS,eSa
 int listar_SCuatArcades(eSalon* arraySal, int limSal, eArcade* arrayArcade, int limArcade,eTipoSalon* tipoSalon,int tamTipoSalon);
 int listar_ArcadeDJug(eArcade* arrayArc, int limite, eSalon* arraySal, int limSal,eTipoSonido* tipoSonido,int tamTs);
 int listar_UnlSalon(eSalon* listSal, int lenSal, eArcade* listArcade, int lenArcade, int id,eTipoSalon* tipoSalon,int tamTsalon);
+int listar_todosArc(eSalon* listSal, int lenSal, eArcade* listArcade, int lenArcade, int id,eTipoSalon* tipoSalon,int tamTsalon,eTipoSonido* tipoSonido,int tamTson);
+int listar_SalonMasCantidad(eArcade* arrayArcade, int lenArcade, eSalon* arraySalon, int tamSalon,eTipoSalon* tipoSalon,int tamTsalon);
 #endif /* INFORMES_H_ */

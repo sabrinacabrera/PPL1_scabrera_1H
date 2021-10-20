@@ -41,7 +41,10 @@ int total_informes(eArcade* arrayA,int limiteArc,eTipoSonido* tipoS,int tamS,eSa
 		char continueS = 's';
 		char confirm;
 		int  id;
+		int idArc;
 		int posicion;
+		int posicionArc;
+		//char bufferNombre[63];
 			do
 			{
 
@@ -58,26 +61,34 @@ int total_informes(eArcade* arrayA,int limiteArc,eTipoSonido* tipoS,int tamS,eSa
 
 							break;
 							case 3:
+								sal_imprimirArray(arraySalon,tamSalon,tipoSalon, tamTipoSalon);
 
-                                id= utn_getNumero(&id, "\n Ingrese el ID del salón a listar\n ","\n ERROR,Ingrese el ID del salón a listar\n ", 0, 100, 3);
 
-
-                                	 posicion= buscarPorId(id,arraySalon, tamSalon);
-                                     listar_UnlSalon(arraySalon,tamSalon, arrayA, limiteArc,id,tipoSalon,tamTipoSalon);
-
+                                id= utn_getNumero(&id,"\n Ingrese el ID del salón a listar\n ","\n ERROR,Ingrese el ID del salón a listar\n ", 0, 100, 3);
+                                posicion= buscarPorId(id,arraySalon, tamSalon);
+                                if(id==0 && arraySalon[posicion].idSalon == id){
+                                	listar_UnlSalon(arraySalon,tamSalon, arrayA, limiteArc,id,tipoSalon,tamTipoSalon);
+                                }
 
                                 break;
 							case 4:
+								arc_imprimirArray(arrayA, limiteArc, tipoS, tamS);
+								idArc=utn_getNumero(&idArc,"\n Ingrese el ID del arcade a listar\n ","\n ERROR,Ingrese el ID del arcade a listar\n ", 0, 1000, 3);
+								posicionArc= arc_buscarPorId(idArc, arrayA, limiteArc);
 
-							break;
+								if(idArc==0 && arrayA[posicionArc].idArcade == idArc){
+									listar_todosArc(arraySalon, tamSalon, arrayA, limiteArc,idArc, tipoSalon, tamTipoSalon,tipoS, tamS);
+
+								    }
+								break;
 							case 5:
-
+								listar_SalonMasCantidad(arrayA, limiteArc, arraySalon, tamSalon, tipoSalon, tamTipoSalon);
 							break;
 							case 6:
 
 							break;
 							case 7:
-
+								//utn_getNombre(&bufferNombre, 63, mensaje, mensajeError, reintentos)
 							break;
 							case 8:
 								system("cls");
@@ -138,20 +149,20 @@ int listar_SCuatArcades(eSalon* arraySal, int limSal, eArcade* arrayArcade, int 
 int listar_ArcadeDJug(eArcade* arrayArc, int limite, eSalon* arraySal, int limSal,eTipoSonido* tipoSonido,int tamTs)
 {
 	int respuesta = 1;
-	int i;
 	int pos;
 
 
 	if(arrayArc != NULL && limite > 0 && arraySal != NULL && limSal > 0)
 	{
-		respuesta = 0;
 
 
-		for(i = 0; i < limite; i++)
+		for(int i = 0; i < limite; i++)
 		{
 			if(arrayArc[i].isEmpty == 0 && arrayArc[i].cantJugadores > 2)
 			{
 				pos = buscarPorId(i,&arraySal[i], limSal);
+
+				respuesta = 0;
 
 				printf("Arcade: %d - Jug: %d -%s - Salón: %s\n", arrayArc[i].idArcade, arrayArc[i].cantJugadores, arrayArc[i].nombreJ, arraySal[pos].nombre);
 			}
@@ -182,10 +193,75 @@ int listar_UnlSalon(eSalon* listSal, int lenSal, eArcade* listArcade, int lenArc
 				cont++;
 			}
 		}
-		printf("Arcades dentro del salon son : %d\n", cont);
+		printf("\n Arcades dentro del salon son : %d\n\n", cont);
 
 	}
 
 	return respuesta;
 }
 
+
+//------------------
+int listar_todosArc(eSalon* listSal, int lenSal, eArcade* listArcade, int lenArcade, int id,eTipoSalon* tipoSalon,int tamTsalon,eTipoSonido* tipoSonido,int tamTson)
+{
+	int respuesta = 1;
+
+	if(listArcade != NULL && listArcade > 0 && listArcade != NULL && lenArcade > 0)
+	{
+		respuesta = 0;
+		for(int i = 0; i < lenArcade; i++){
+
+		    if( listArcade[i].isEmpty == 0 && listArcade[i].idSal == id){
+
+			   arc_imprimir(&listArcade[i],tipoSonido, tamTson);
+
+
+		     }
+		}
+
+	}
+
+	return respuesta;
+}
+
+int listar_SalonMasCantidad(eArcade* arrayArcade, int lenArcade, eSalon* arraySalon, int tamSalon,eTipoSalon* tipoSalon,int tamTsalon)
+{
+	int respuesta = 1;
+	int i;
+	int j;
+	int cont;
+	int idMax;
+	int cMax;
+	int flag = 1;
+
+	if(arrayArcade != NULL && lenArcade > 0 && arraySalon != NULL && tamSalon > 0)
+	{
+		respuesta = 0;
+		for(i = 0; i < tamSalon; i++)
+		{
+			if(arraySalon[i].isEmpty == 0)
+			{
+				cont = 0;
+				for(j = 0; j < lenArcade; j++)
+				{
+					if(arrayArcade[j].isEmpty == 0 && arrayArcade[j].idSal == arraySalon[i].idSalon)
+					{
+						cont++;
+					}
+				}
+				if(flag == 1 || cont > cMax)
+				{
+					idMax = i;
+					cMax = cont;
+					flag = 0;
+				}
+			}
+		}
+
+		sal_imprimir(&arraySalon[idMax], tipoSalon, tamTsalon);
+		printf("Este salon posee : %d arcades \n\n", cMax);
+
+	}
+
+	return respuesta;
+}

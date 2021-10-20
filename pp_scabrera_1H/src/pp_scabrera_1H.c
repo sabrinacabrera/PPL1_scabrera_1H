@@ -15,6 +15,7 @@
 #include "salon.h"
 #include "arcade.h"
 #include "unionArcSal.h"
+#include "informes.h"
 
 
 #define LENSAL 100
@@ -62,7 +63,7 @@ int main(void) {
 					}
 //----------------------------------------------------
 
-	/*sal_altaForzadaArray(arraySalon,LENSAL,0,&idSalon ,"saltitos","juncal 220",1);
+	sal_altaForzadaArray(arraySalon,LENSAL,0,&idSalon ,"saltitos","juncal 220",1);
 	sal_altaForzadaArray(arraySalon,LENSAL,1,&idSalon ,"papita","rondeau 654",2);
 	sal_altaForzadaArray(arraySalon,LENSAL,2,&idSalon ,"hamburguesa","lalala 963",1);
 
@@ -74,7 +75,6 @@ int main(void) {
    arc_altaForzadaArray(arrayArcade,LENAR, 5,&idArcade,1,"china",1,1,4,"kombat");
    arc_altaForzadaArray(arrayArcade,LENAR, 6,&idArcade,0,"mongolia",1,1,3,"counter");
 
-*/
 
 
 	do{
@@ -159,7 +159,7 @@ int main(void) {
 				    imprimir_juegos(arrayArcade,LENAR);
 				    break;
 				case 9:
-					total_informes(arrayArcade, LENAR, listaTson, LENTSON, arraySalon, LENSAL, listaTsalon, LENTSALON);
+					total_informes(arrayArcade,LENAR,listaTson,LENTSON,arraySalon,LENSAL,listaTsalon, LENTSALON);
 					break;
 
 				case 10:
