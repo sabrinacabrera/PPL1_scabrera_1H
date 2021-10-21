@@ -1,5 +1,5 @@
 src/informes.o: ../src/informes.c ../src/informes.h ../src/utn.h \
- ../src/unionArcSal.h ../src/arcade.h ../src/salon.h
+ ../src/unionArcSal.h ../src/arcade.h ../src/salon.h ../src/menu.h
 
 ../src/informes.h:
 
@@ -10,3 +10,5 @@ src/informes.o: ../src/informes.c ../src/informes.h ../src/utn.h \
 ../src/arcade.h:
 
 ../src/salon.h:
+
+../src/menu.h:

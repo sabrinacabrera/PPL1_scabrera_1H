@@ -5,12 +5,8 @@
  *      Author: gisel
  */
 
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "salon.h"
-#include "utn.h"
+
 
 /**
  * \briefinicializa array
@@ -81,7 +77,7 @@ int sal_imprimir(eSalon* pElemento,eTipoSalon* arrayTipo,int tamT)
 	if(pElemento != NULL && pElemento->isEmpty == 0)
 	{
 		retorno=0;
-		printf("\n ID:%d -NOMBRE: %s -DIRECCION: %s -TIPO: %d - %s \n",pElemento->idSalon,pElemento->nombre,pElemento->direccion,pElemento->tipoSalon,descripTipo);
+		printf("\n\n ID:%d -NOMBRE: %s -DIRECCION: %s -TIPO: %d - %s \n\n",pElemento->idSalon,pElemento->nombre,pElemento->direccion,pElemento->tipoSalon,descripTipo);
 	}
 	return retorno;
 }

@@ -6,6 +6,7 @@
 C_SRCS += \
 ../src/arcade.c \
 ../src/informes.c \
+../src/menu.c \
 ../src/pp_scabrera_1H.c \
 ../src/salon.c \
 ../src/unionArcSal.c \
@@ -14,6 +15,7 @@ C_SRCS += \
 OBJS += \
 ./src/arcade.o \
 ./src/informes.o \
+./src/menu.o \
 ./src/pp_scabrera_1H.o \
 ./src/salon.o \
 ./src/unionArcSal.o \
@@ -22,6 +24,7 @@ OBJS += \
 C_DEPS += \
 ./src/arcade.d \
 ./src/informes.d \
+./src/menu.d \
 ./src/pp_scabrera_1H.d \
 ./src/salon.d \
 ./src/unionArcSal.d \

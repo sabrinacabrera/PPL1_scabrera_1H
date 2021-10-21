@@ -12,10 +12,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include "utn.h"
-#include "salon.h"
-#include "arcade.h"
 #include "unionArcSal.h"
 #include "informes.h"
+#include "menu.h"
 
 
 #define LENSAL 100
@@ -23,9 +22,6 @@
 #define LENTSON 2
 #define LENTSALON 2
 
-
-//prototipos de funciones
-int menu();
 
 int main(void) {
 	setbuf(stdout,NULL);
@@ -43,6 +39,8 @@ int main(void) {
 
 	int idSalon=0;
 	int idArcade=0;
+	int flagMenuprincSal=0;
+	int flagMenuprincArc=0;
 
 	int auxiliarIndiceSal;
 
@@ -61,7 +59,7 @@ int main(void) {
 					{
 						printf("Array Arcade inicializado correctamente. \n\n");
 					}
-//----------------------------------------------------
+/*/----------------------------------------------------
 
 	sal_altaForzadaArray(arraySalon,LENSAL,0,&idSalon ,"saltitos","juncal 220",1);
 	sal_altaForzadaArray(arraySalon,LENSAL,1,&idSalon ,"papita","rondeau 654",2);
@@ -76,11 +74,11 @@ int main(void) {
    arc_altaForzadaArray(arrayArcade,LENAR, 6,&idArcade,0,"mongolia",1,1,3,"counter");
 
    arc_altaForzadaArray(arrayArcade,LENAR, 7,&idArcade,0,"africa",1,4,3,"mortal 1");
-   arc_altaForzadaArray(arrayArcade,LENAR, 8,&idArcade,0,"africa",1,4,3,"mortal 2");
+   arc_altaForzadaArray(arrayArcade,LENAR, 8,&idArcade,2,"africa",1,4,3,"mortal 2");
    arc_altaForzadaArray(arrayArcade,LENAR, 9,&idArcade,0,"africa",1,4,3,"mortal 3");
-   arc_altaForzadaArray(arrayArcade,LENAR, 10,&idArcade,0,"africa",1,4,3,"mortal 4");
+   arc_altaForzadaArray(arrayArcade,LENAR, 10,&idArcade,1,"africa",1,4,3,"mortal 4");
 
-
+//-----------------------------------------------------------------------------------------/*/
 
 	do{
 			system("cls");
@@ -88,12 +86,14 @@ int main(void) {
 			switch(menu())
 			{
 				case 1:
+
 					auxiliarIndiceSal = sal_getEmptyIndex(arraySalon,LENSAL);
 					if(auxiliarIndiceSal >= 0)
 					{
 						if(sal_altaArray(arraySalon,LENSAL,auxiliarIndiceSal,&idSalon,listaTsalon,LENTSALON) == 0)
 						{
 							printf("\n Carga salon realizada con exito,su id es : %d \n",idSalon);
+							flagMenuprincSal=1;
 						}else
 						{
 							  printf("\n Hubo un error en el alta salon \n");
@@ -101,70 +101,102 @@ int main(void) {
 					}else{
 						  printf("\n NO HAY MAS LUGAR \n");
 						 }
+
 				break;
 				case 2:
-
-					  if(sal_baja(arraySalon,LENSAL,arrayArcade,LENAR,listaTsalon,LENTSALON) == 0)
+					if(flagMenuprincSal==1)
 						{
-						  printf("\n Eliminacion de salon realizada con exito \n");
-							}else{
-									printf("\n Hubo un error en la baja de salon \n");
-							}
-					break;
-
-				case 3:
-
-					sal_imprimirArray(arraySalon,LENSAL,listaTsalon,LENTSALON);
-
-
-					break;
-
-				case 4:
-					auxiliarIndiceArc = arc_getEmptyIndex(arrayArcade,LENAR);
-					if(auxiliarIndiceArc >= 0)
-					{
-					  if(arc_altaArray(arrayArcade,LENAR,auxiliarIndiceArc,&idArcade,listaTson,LENTSON,arraySalon,LENSAL,listaTsalon,LENTSALON) == 0)
-					 {
-						printf("\n Carga arcade realizada con exito,su id es : %d \n",idArcade);
-					 }else{
-							 printf("\n Hubo un error en el alta arcade \n");
-						}
+							if(sal_baja(arraySalon,LENSAL,arrayArcade,LENAR,listaTsalon,LENTSALON) == 0)
+								{
+								  printf("\n Eliminacion de salon realizada con exito \n");
+								}else{
+										printf("\n Hubo un error en la baja de salon \n");
+									 }
 						}else{
-								printf("\n NO HAY MAS LUGAR \n");
-					 }
-					break;
-				case 5:
-					arc_imprimirArray(arrayArcade,LENAR,listaTson,LENTSON);
-					if(utn_getNumero(&auxIdArc,"\n Indique el ID del Arcade a modificar\n ","\nID invalido \n",0,idArcade,0) == 0)
-					{
-						auxiliarIndiceArc =arc_buscarPorId(auxIdArc,arrayArcade,LENAR);
-						if(	auxiliarIndiceArc >= 0 &&
-							arc_modificarArray(arrayArcade,LENAR,auxIdArc,listaTson,LENTSON) == 0){
-											printf("\nModificacion realizada con exito\n");
-										}
-							}
-					break;
-				case 6:
-					if(arc_baja(arrayArcade,LENAR,listaTson,LENTSON) == 0)
-					{
-						 printf("\n Eliminacion de arcade realizada con exito \n");
-					}else{
-							printf("\n Hubo un error en la baja de arcade \n");
+							printf("\nERROR,primero debe dar de alta un salon para dar de baja\n");
 						}
+				break;
+				case 3:
+					if(flagMenuprincSal==1){
+						sal_imprimirArray(arraySalon,LENSAL,listaTsalon,LENTSALON);
+					}else{
 
-				    break;
+						printf("\nERROR,primero debe dar de alta un salon/es para imprimir\n");
+					}
 
+				break;
+				case 4:
+					if(flagMenuprincSal==1){
+						auxiliarIndiceArc = arc_getEmptyIndex(arrayArcade,LENAR);
+						if(auxiliarIndiceArc >= 0)
+						{
+						  if(arc_altaArray(arrayArcade,LENAR,auxiliarIndiceArc,&idArcade,listaTson,LENTSON,arraySalon,LENSAL,listaTsalon,LENTSALON) == 0)
+							 {
+								printf("\n Carga arcade realizada con exito,su id es : %d \n",idArcade);
+								flagMenuprincArc=1;
+							 }else{
+								 	 printf("\n Hubo un error en el alta arcade \n");
+							     }
+						}else{
+									printf("\n NO HAY MAS LUGAR \n");
+								 }
+					}else{
+
+						printf("\n Para dar de alta un arcade,debe haber al menos un salon!\n");
+
+					}
+				break;
+				case 5:
+					if(flagMenuprincArc==1){
+						arc_imprimirArray(arrayArcade,LENAR,listaTson,LENTSON);
+						if(utn_getNumero(&auxIdArc,"\n Indique el ID del Arcade a modificar\n ","\nID invalido \n",0,idArcade,0) == 0)
+						{
+							auxiliarIndiceArc =arc_buscarPorId(auxIdArc,arrayArcade,LENAR);
+							if(	auxiliarIndiceArc >= 0 &&
+								arc_modificarArray(arrayArcade,LENAR,auxIdArc,listaTson,LENTSON) == 0){
+												printf("\nModificacion realizada con exito\n");
+											}
+								}
+					}else{
+						printf("\n Si no hay arcades no se pueden modificar!\n");
+					}
+				break;
+				case 6:
+					if(flagMenuprincArc==1)
+					{
+						if(arc_baja(arrayArcade,LENAR,listaTson,LENTSON) == 0)
+						{
+							 printf("\n Eliminacion de arcade realizada con exito \n");
+						}else{
+								printf("\n Hubo un error en la baja de arcade \n");
+							}
+					}else{
+						printf("\nSi no hay arcades no se pueden dar de baja!\n");
+					}
+				break;
 				case 7:
-					arc_imprimirArray(arrayArcade,LENAR,listaTson,LENTSON);
-				    break;
+					if(flagMenuprincArc==1 ){
+						arc_imprimirArray(arrayArcade,LENAR,listaTson,LENTSON);
+					}else{
+						printf("\n tiene que haber arcades para imprimir! \n");
+					}
+				break;
 
 				case 8:
-				    imprimir_juegos(arrayArcade,LENAR);
-				    break;
+					if(flagMenuprincArc==1 ){
+						imprimir_juegos(arrayArcade,LENAR);
+					}else{
+						printf("No hay juegos para imprimir");
+					}
+				break;
 				case 9:
-					total_informes(arrayArcade,LENAR,listaTson,LENTSON,arraySalon,LENSAL,listaTsalon, LENTSALON);
-					break;
+					if(flagMenuprincSal==1 && flagMenuprincArc==1){
+						total_informes(arrayArcade,LENAR,listaTson,LENTSON,arraySalon,LENSAL,listaTsalon, LENTSALON);
+					}else{
 
+						printf("\nNo hay datos para informes\n");
+					}
+					break;
 				case 10:
 					system("cls");
 					printf("\n***** Salir *****\n\n ");
@@ -175,43 +207,15 @@ int main(void) {
 					{
 						continueS = 'n';
 					}
-					break;
+				break;
 				default:
 					printf("No es una opcion valida.\n");
 			}
 
-
-
 		}while(continueS == 's');
-
-
 	return EXIT_SUCCESS;
 }
 
-
-int menu()
-{
-	int opcion;
-
-	system("cls");
-	printf("\n ***** MENU *****\n\n");
-	printf("1. ALTA DE SALON\n");
-	printf("2. ELIMINAR SALON\n");
-	printf("3. IMPRIMIR SALONES\n");
-	printf("4. INCORPORAR ARCADE\n");
-	printf("5. MODIFICAR ARCADE\n");
-	printf("6. ELIMINAR ARCADE \n");
-	printf("7. IMPRIMIR ARCADES\n");
-	printf("8. IMPRIMIR JUEGOS\n");
-	printf("9. INFORMES\n");
-
-	printf("10. SALIR\n\n");
-
-	utn_getNumero(&opcion, "Ingrese la opcion elegida: \n", "Error, no es una opcion valida.\n", 1, 10,3);
-
-	return opcion;
-
-}
 
 
 

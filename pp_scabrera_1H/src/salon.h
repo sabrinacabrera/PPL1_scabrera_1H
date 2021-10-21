@@ -7,6 +7,10 @@
 
 #ifndef SALON_H_
 #define SALON_H_
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "utn.h"
 
 typedef struct{
 	char nombre[30];

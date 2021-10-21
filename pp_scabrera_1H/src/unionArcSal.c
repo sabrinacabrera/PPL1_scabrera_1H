@@ -59,6 +59,12 @@ int arc_altaArray(eArcade* array,int limite, int indice, int* id,eTipoSonido lis
 	return respuesta;
 }
 
+/* funcion buscar por id salon
+ * int id valor a buscar
+ * lista array de salon
+ * tam tamanio salon
+ * devuelve  -1 ERROR, indice si encuentra el id
+ */
 int buscarPorId(int id, eSalon* lista, int tam)
 {
 	int indice = -1;
@@ -77,8 +83,11 @@ int buscarPorId(int id, eSalon* lista, int tam)
 }
 
 
-
-//esta es la funcion que llamo en main para dar de baja:
+/*esta es la funcion que llamo en main para dar de baja
+ *
+ *
+ * retorna -1 si error, 0 sino
+ */
 int sal_baja( eSalon* listaS, int tamS, eArcade* listaA, int tamA,eTipoSalon* tipoS,int tamTipoSalon)
 {
 	int id;
@@ -89,14 +98,14 @@ int sal_baja( eSalon* listaS, int tamS, eArcade* listaA, int tamA,eTipoSalon* ti
 
 		sal_imprimirArray(listaS,tamS,tipoS,tamTipoSalon);
 
-		utn_getNumero(&id,"\n ingrese id del salon al que pertenece: \n","\n ERROR,id invalido \n",0,999,3);
+		utn_getNumero(&id,"\n ingrese id del salon al que pertenece: \n","\n ERROR,id invalido : \n",0,999,3);
 
 		int posicion;
 
 		posicion=buscarPorId(id,listaS,tamS);
 		while(posicion== -1){
 
-			utn_getNumero(&id,"\n ingrese id del salon: \n","\n ERROR,id invalido \n",0,999,3);
+			utn_getNumero(&id,"\n ingrese id del salon: \n","\n ERROR,id invalido: \n",0,999,3);
 
 		}
 
@@ -107,9 +116,7 @@ int sal_baja( eSalon* listaS, int tamS, eArcade* listaA, int tamA,eTipoSalon* ti
 		for(int i;i<tamA;i++){
 			if(listaA[i].isEmpty==0 && listaA[i].idSal==id){
 				listaA[i].isEmpty=1;
-
 			}
-
 		}
 	}
 

@@ -17,4 +17,6 @@
 int arc_altaArray(eArcade* array,int limite, int indice, int* id,eTipoSonido listaT[], int tamT,eSalon* arrayS,int limiteSalon,eTipoSalon* arrayTipoSalon, int tamTipoSalon);
 int buscarPorId(int id, eSalon* lista, int tam);
 int sal_baja( eSalon* listaS, int tamS, eArcade* listaA, int tamA,eTipoSalon* tipoS,int tamTipoSalon);
+
+
 #endif /* UNIONARCSAL_H_ */
