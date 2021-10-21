@@ -98,9 +98,11 @@ int total_informes(eArcade* arrayA,int limiteArc,eTipoSonido* tipoS,int tamS,eSa
 								}
 							break;
 							case 8:
-
+									listar_arcMasDosJugadores(arrayA, limiteArc, arraySalon, tamSalon,tipoSalon, tamTipoSalon);
 								break;
 							case 9:
+								promedio_arcxsalon(arrayA, limiteArc, arraySalon, tamSalon);
+
 								break;
 							case 10:
 								system("cls");
@@ -287,7 +289,7 @@ int contador_juegos(eArcade* arrayArcade,int limiteArc,char* juegoA){
 				 break;
 			}else{
 
-				if(strcmp(arrayArcade[i].nombreJ,juegoA) == 0 ) //si el vec juego existe ya, me devuelve 0
+				if(strcmp(arrayArcade[i].nombreJ,juegoA) == 0 )
 				{
 					contador=contador+1;
 				 }
@@ -346,13 +348,100 @@ int imprimir_montoMaxSalon(eSalon* arraySalon,int limite,eArcade* arrayArcade,in
 //-----------------------
 
 
+int listar_arcMasDosJugadores(eArcade* arrayArcade,int limiteArcade,eSalon* arraySalon,int limiteSalon,eTipoSalon* arrayTipo,int tamT ){
+
+	int retorno=1;
+	int contador=0;
+	if(arrayArcade != NULL  && limiteArcade > 0){
+		retorno=0;
+
+			for(int j = 0; j < limiteSalon; j++){
+
+				contador=0;
+			if(arraySalon[j].isEmpty==1){
+
+				break;
+
+				}else{
+
+			      for(int i= 0; i < limiteArcade; i++){
+
+				   if(arrayArcade[i].cantJugadores > 2 && arrayArcade[i].isEmpty==0 && arrayArcade[i].idSal == arraySalon[j].idSalon ) //pregutno si array en posicion i tiene >2 jugadores
+				{
+					contador=contador+1; //si es si suma 1
+
+				}
+
+				}
+
+			  }
+
+			    if(contador>=8 ){
+
+			 	     sal_imprimir(&arraySalon[j], arrayTipo, tamT);
+
+			      }
+			 }
+
+			}
 
 
+	return retorno;
+}
+
+int contador_salones(eSalon* arraySalon,int limite){
+
+	int contador=0;
+
+	if(arraySalon  != NULL && limite > 0 ){
+
+		for(int i= 0; i < limite; i++){
+
+			if(arraySalon[i].isEmpty==1)
+			{
+				break;
+			}else
+			{
+				contador=contador+1;
+		    }
+		}
+	}
+	return contador;
+}
+
+int contador_Arcades(eArcade* arrayArcade,int limite){
+
+	int contador=0;
+
+	if(arrayArcade  != NULL && limite > 0 ){
+
+		for(int i= 0; i < limite; i++){
+
+			if(arrayArcade[i].isEmpty==1)
+			{
+				break;
+			}else
+			{
+				contador=contador+1;
+		    }
+		}
+	}
+	return contador;
+}
+
+int promedio_arcxsalon(eArcade* arrayArcade,int limiteArc,eSalon* arraySalon,int limiteSalon){
+	int retorno=1;
+	float promedio;
+	if( arrayArcade !=NULL && limiteArc>0 && arraySalon !=NULL && limiteSalon>0){
+		retorno=0;
+		promedio=(float)contador_Arcades(arrayArcade, limiteArc)/contador_salones(arraySalon, limiteSalon);
+
+		printf("\n El promedio de arcades por salón es : %.2f \n",promedio);
+	}else{}
 
 
-
-
-
+	return retorno;
+}
 
 
 

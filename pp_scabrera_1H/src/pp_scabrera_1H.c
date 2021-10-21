@@ -75,6 +75,11 @@ int main(void) {
    arc_altaForzadaArray(arrayArcade,LENAR, 5,&idArcade,1,"china",1,1,4,"kombat");
    arc_altaForzadaArray(arrayArcade,LENAR, 6,&idArcade,0,"mongolia",1,1,3,"counter");
 
+   arc_altaForzadaArray(arrayArcade,LENAR, 7,&idArcade,0,"africa",1,4,3,"mortal 1");
+   arc_altaForzadaArray(arrayArcade,LENAR, 8,&idArcade,0,"africa",1,4,3,"mortal 2");
+   arc_altaForzadaArray(arrayArcade,LENAR, 9,&idArcade,0,"africa",1,4,3,"mortal 3");
+   arc_altaForzadaArray(arrayArcade,LENAR, 10,&idArcade,0,"africa",1,4,3,"mortal 4");
+
 
 
 	do{
