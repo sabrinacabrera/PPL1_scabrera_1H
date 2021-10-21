@@ -96,7 +96,6 @@ int main(void) {
 					}else{
 						  printf("\n NO HAY MAS LUGAR \n");
 						 }
-
 				break;
 				case 2:
 
@@ -106,7 +105,6 @@ int main(void) {
 							}else{
 									printf("\n Hubo un error en la baja de salon \n");
 							}
-
 					break;
 
 				case 3:

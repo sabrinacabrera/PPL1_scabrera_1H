@@ -21,4 +21,6 @@ int listar_ArcadeDJug(eArcade* arrayArc, int limite, eSalon* arraySal, int limSa
 int listar_UnlSalon(eSalon* listSal, int lenSal, eArcade* listArcade, int lenArcade, int id,eTipoSalon* tipoSalon,int tamTsalon);
 int listar_todosArc(eSalon* listSal, int lenSal, eArcade* listArcade, int lenArcade, int id,eTipoSalon* tipoSalon,int tamTsalon,eTipoSonido* tipoSonido,int tamTson);
 int listar_SalonMasCantidad(eArcade* arrayArcade, int lenArcade, eSalon* arraySalon, int tamSalon,eTipoSalon* tipoSalon,int tamTsalon);
+int contador_juegos(eArcade* arrayArcade,int limiteArc,char* juegoA);
+int imprimir_montoMaxSalon(eSalon* arraySalon,int limite,eArcade* arrayArcade,int limiteArcade,eTipoSalon* arrayTsalon,int tamTsalon);
 #endif /* INFORMES_H_ */

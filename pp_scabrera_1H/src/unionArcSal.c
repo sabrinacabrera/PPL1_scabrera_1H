@@ -24,8 +24,9 @@ int arc_altaArray(eArcade* array,int limite, int indice, int* id,eTipoSonido lis
 
 	if(array != NULL && limite > 0 && indice < limite && indice >= 0 && id != NULL)
 	{
-		if(utn_getNombre(buffer.nombreJ,63,"\n Ingrese Nombre de juego: \n","\nERROR,Nombre invalido \n",2) == 0 &&
-		   utn_getNombre(buffer.nacionalidad,30,"\n ingrese nacionalidad : \n","\n ERROR,nacionalidad invalido \n",2) == 0 &&
+
+		if(utn_getDescripcion(buffer.nombreJ, 63, "\n Ingrese Nombre de juego: \n", "\nERROR,Nombre invalido \n",2) == 0 &&
+		   utn_getDescripcion(buffer.nacionalidad, 30, "\n Ingrese nacionalidad de juego: \n", "\nERROR,nacionalidad invalida \n",2) == 0 &&
 		   utn_getNumero(&buffer.cantJugadores,"\n ingrese cantidad de jugadores 1-4: \n","\n ERROR,cantidad invalida \n",1,4,3) == 0 &&
 		   utn_getNumero(&buffer.maxFichas,"\n ingrese maximo de fichas 1-10: \n","\n ERROR,maximo invalido \n",1,10,3) == 0
 

@@ -20,8 +20,11 @@ int menuInformes()
 	printf("5) Imprimir el salón con más cantidad de arcades\n");
 	printf("6)mprimir el monto máximo en pesos que puede recaudar el salon\n");
 	printf("7)Ingresar el nombre de un juego e imprimir cuantos arcades lo contienen\n");
-	printf("8) Salir\n\n");
-	utn_getNumero(&opcion,"\n Ingrese la opcion elegida: \n ","\n Ingrese la opcion elegida:\n ", 1, 8, 3);
+	printf("8) Listar los salones que  posee al menos 8 arcades de mas de 2 jugadores\n");
+	printf("9) Imprimir el promedio de arcades por salón.\n");
+
+	printf("10) Salir\n\n");
+	utn_getNumero(&opcion,"\n Ingrese la opcion elegida: \n ","\n Ingrese la opcion elegida:\n ", 1, 10, 3);
 	return opcion;
 
 }
@@ -44,7 +47,8 @@ int total_informes(eArcade* arrayA,int limiteArc,eTipoSonido* tipoS,int tamS,eSa
 		int idArc;
 		int posicion;
 		int posicionArc;
-		//char bufferNombre[63];
+		char bufferNombre[63];
+
 			do
 			{
 
@@ -85,12 +89,20 @@ int total_informes(eArcade* arrayA,int limiteArc,eTipoSonido* tipoS,int tamS,eSa
 								listar_SalonMasCantidad(arrayA, limiteArc, arraySalon, tamSalon, tipoSalon, tamTipoSalon);
 							break;
 							case 6:
-
+								imprimir_montoMaxSalon(arraySalon, tamSalon, arrayA, limiteArc, tipoSalon, tamTipoSalon);
 							break;
 							case 7:
-								//utn_getNombre(&bufferNombre, 63, mensaje, mensajeError, reintentos)
+								if(utn_getDescripcion(bufferNombre,63,"\nIngrese nombre del juego \n ","\n ERROR,Ingrese nombre del juego:\n\n",3)==0){
+
+									printf("\n La cantidad de arcades con el juego %s son %d\n",bufferNombre, contador_juegos(arrayA, limiteArc, bufferNombre));
+								}
 							break;
 							case 8:
+
+								break;
+							case 9:
+								break;
+							case 10:
 								system("cls");
 								printf("\n***** Salir *****\n\n ");
 								printf("Confirma salida? s/n: ");
@@ -259,9 +271,92 @@ int listar_SalonMasCantidad(eArcade* arrayArcade, int lenArcade, eSalon* arraySa
 		}
 
 		sal_imprimir(&arraySalon[idMax], tipoSalon, tamTsalon);
-		printf("Este salon posee : %d arcades \n\n", cMax);
+		printf(" \n\n Este salon posee : %d arcades \n\n", cMax);
 
 	}
 
 	return respuesta;
 }
+
+int contador_juegos(eArcade* arrayArcade,int limiteArc,char* juegoA){
+	int contador=0;
+
+	if(arrayArcade != NULL && arrayArcade > 0 && arrayArcade != NULL && limiteArc > 0){
+	      for(int i= 0; i < limiteArc; i++){
+	       if(arrayArcade[i].isEmpty==1){
+				 break;
+			}else{
+
+				if(strcmp(arrayArcade[i].nombreJ,juegoA) == 0 ) //si el vec juego existe ya, me devuelve 0
+				{
+					contador=contador+1;
+				 }
+	      }
+		}
+	}
+
+	return contador;
+
+}
+
+int imprimir_montoMaxSalon(eSalon* arraySalon,int limite,eArcade* arrayArcade,int limiteArcade,eTipoSalon* arrayTsalon,int tamTsalon){
+	int respuesta=1;
+	int auxId;
+	int auxIndeceSal;
+	float valorFicha;
+	int sumaFichas=0;
+	float multiplicoFichas;
+
+	if(arrayArcade != NULL && limite > 0 && arraySalon != NULL && limiteArcade > 0){
+
+	  sal_imprimirArray(arraySalon, limite, arrayTsalon, tamTsalon);
+
+	  if(utn_getNumero(&auxId,"\n Indique el ID del salon a imprimir: \n","\n ERROR,ID invalido,ingrese nuevamente: \n",0,limite,0) == 0){
+		respuesta=0;
+		auxIndeceSal =buscarPorId(auxId, arraySalon, limite);
+
+		if(	auxIndeceSal >= 0 ){
+			if(utn_getNumeroFlotante(&valorFicha,"\nIngrese el valor de la ficha  mayor a 0: \n","\nERROR,Ingrese nuevamente el valor de la ficha mayor a 0: \n", 0.1, 9999,3)==0)
+			{
+
+			 for(int i = 0; i < limiteArcade; i++){
+
+				if(arrayArcade[i].isEmpty==1){
+					 break;
+				}else{
+						  if(arrayArcade[i].isEmpty == 0 && arrayArcade[i].idSal == arraySalon[i].idSalon && arraySalon[i].idSalon == auxId){
+						   	sumaFichas=sumaFichas+ arrayArcade[i].maxFichas;
+						 }
+			    }
+			 }
+				 multiplicoFichas=(sumaFichas*valorFicha);
+			}
+			printf("\n El monto máximo en pesos que puede recaudar el salón %d es:$ %.2f \n",auxId,multiplicoFichas);
+
+		}else{
+
+			printf("\nNo existe ID ingresado \n");
+	  }
+	 }
+	}
+
+	return respuesta;
+}
+
+//-----------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
